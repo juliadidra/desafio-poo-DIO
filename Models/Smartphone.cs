@@ -10,9 +10,18 @@ namespace DesafioPOO.Models
         public Smartphone(string numero, string imei, string modelo, int memoria)
         {
             Numero = numero;
-            Imei = imei; 
+            Imei = imei;
             Modelo = modelo;
             Memoria = memoria;
+
+            if (!ValidarNumeroTelefone(numero)) 
+            {
+                throw new Exception("Número de telefone inválido.");
+            }
+
+            if(memoria <= 0){
+                throw new Exception("Memoria inválida.");
+            }
         }
 
         public void Ligar()
@@ -23,6 +32,11 @@ namespace DesafioPOO.Models
         public void ReceberLigacao()
         {
             Console.WriteLine($"{Modelo}: Recebendo ligação...");
+        }
+
+        public bool ValidarNumeroTelefone(string numero)
+        {
+            return !string.IsNullOrEmpty(numero) && numero.Length == 11; // DDD + 9 + numero(8 digitos)
         }
 
         public abstract void InstalarAplicativo(string nomeApp);
